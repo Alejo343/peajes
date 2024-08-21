@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Illuminate\Support\Facades\Storage;
 use Exception;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+
 
 
 class DocumentController extends Controller
@@ -14,7 +16,7 @@ class DocumentController extends Controller
     {
         $validatedData = $request->validate([
             'option-toll' => 'required|string',
-            'code' => 'required|numeric',
+            'consecutive' => 'required|numeric',
             'date' => 'required|date',
             'time' => 'required|date_format:H:i',
         ]);
@@ -28,18 +30,18 @@ class DocumentController extends Controller
         // Crear una instancia de TemplateProcessor con la ruta del archivo
         $newToll = new TemplateProcessor(Storage::path($filePath));
 
-        // Reemplazar los valores de la plantilla
+        //Reemplazar los valores de la plantilla
         $newToll->setValues(
-            array('code' => $validatedData['code'], 'date' => $validatedData['date'], 'time' => $validatedData['time'])
+            array('code' => $validatedData['consecutive'], 'date' => $validatedData['date'], 'time' => $validatedData['time'])
         );
 
-        // Definir la ruta del archivo de salida
+        // // Definir la ruta del archivo de salida
         $outputFilePath = 'output/new' . $validatedData['option-toll'] . time() . '.docx';
 
-        // Guardar el archivo procesado
+        //Guardar el archivo procesado
         $newToll->saveAs(Storage::path($outputFilePath));
 
-        // Devolver el archivo generado como descarga al usuario
+        //Devolver el archivo generado como descarga al usuario
         return response()->download(Storage::path($outputFilePath))->deleteFileAfterSend(true);
     }
 }
