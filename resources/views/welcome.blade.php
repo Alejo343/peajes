@@ -39,7 +39,6 @@
                 </div>
             </header>
 
-
             <main>
                 <div class="container mx-auto space-y-16">
                     <section>
@@ -159,6 +158,10 @@
                                     class="w-full py-2 font-semibold rounded bg-violet-400 text-gray-900">Descargar
                                 </button>
                             </form>
+                            <a href="{{ route('downloadlast') }}" class="btn btn-primary">
+                                Descargar Último Documento
+                            </a>
+
                         </div>
 
                         <div class=" xl:col-span-3 rounded-md bg-gray-900">
@@ -171,7 +174,6 @@
 
                 </div>
             </main>
-
 
             <footer>
                 <div class="container flex justify-between p-6 mx-auto lg:p-8 bg-gray-900">

@@ -21,6 +21,7 @@ Route::get('/', function () {
 
 
 Route::post('/', [DocumentController::class, 'upload'])->name('upload');
+Route::get('/documents/download-last', [DocumentController::class, 'downloadLastDocument'])->name('downloadlast');
 
 
 Route::get('/dashboard', function () {
