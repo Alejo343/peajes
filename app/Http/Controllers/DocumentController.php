@@ -25,31 +25,30 @@ class DocumentController extends Controller
         // Convertir la fecha a formato legible para el documento
         $validatedData['date'] = date('d/m/Y', strtotime($validatedData['date']));
 
-        //define el nobre del archivo
+        // define el nombre del nuevo archivo
         $fileName = $validatedData['consecutive'] . '.docx';
 
-        // Definir la ruta del archivo en la carpeta 'storage/app/public/docs'
+        // encontrar el archivo de plantilla correspondiente al tipo de peaje
         $filePath = 'public/docs/' . $validatedData['option-toll'] . '.docx';
 
         // Crear una instancia de TemplateProcessor con la ruta del archivo
         $newToll = new TemplateProcessor(Storage::path($filePath));
 
         //Reemplazar los valores de la plantilla
-        $newToll->setValues(
-            array(
-                'code' => $validatedData['consecutive'],
-                'date' => $validatedData['date'],
-                'time' => $validatedData['time']
-            )
-        );
+        $newToll->setValues([
+            'code' => $validatedData['consecutive'],
+            'date' => $validatedData['date'],
+            'time' => $validatedData['time']
+        ]);
 
-        //Definir la ruta del archivo de salida
-        $outputFilePath = 'output/' . $fileName;
+        // Definir la ruta del archivo de salida en '/tmp'
+        $outputFilePath = '/tmp/' . $fileName;
 
-        //Guardar el archivo procesado
-        $newToll->saveAs(Storage::path($outputFilePath));
+        // Guardar el archivo procesado en la ruta '/tmp'
+        $newToll->saveAs($outputFilePath);
 
-        $uploadedFile = fopen(Storage::path($outputFilePath), 'r');
+        // Leer el archivo procesado
+        $uploadedFile = fopen($outputFilePath, 'r');
 
         // Subimos el archivo a Firebase Storage
         try {
