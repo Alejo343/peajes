@@ -172,6 +172,51 @@
                     </section>
 
 
+                    <section class="grid gap-6 text-center lg:grid-cols-2 xl:grid-cols-5">
+                        <div class="w-full p-6 rounded-md sm:p-16 xl:col-span-2 bg-gray-900">
+
+                            {{-- <form action="{{ route('create') }}" method="POST" enctype="multipart/form-data"
+                                class="self-stretch space-y-3">
+                                @csrf
+                                <h3 class="mb-5 text-lg font-medium text-gray-900 dark:text-white">Donde?
+                                </h3>
+
+                                <div>
+                                    <label for="title"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">title</label>
+                                    <input type="text" id="title" name="title"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
+                                        focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="000009999" required />
+                                </div>
+
+                                <div>
+                                    <label for="content"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Concecutivo</label>
+                                    <input type="text" id="content" name="content"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
+                                        focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                        placeholder="000009999" required />
+                                </div>
+
+                                <button type="submit"
+                                    class="w-full py-2 font-semibold rounded bg-violet-400 
+                                    text-gray-900">crear
+                                    usuario
+                                </button>
+                            </form> --}}
+
+                        </div>
+
+                        <div class=" xl:col-span-3 rounded-md bg-gray-900">
+
+                        </div>
+                        {{-- <img src="" alt=""
+                            class="object-cover w-full h-full rounded-md xl:col-span-3 bg-gray-500"> --}}
+                    </section>
+
                 </div>
             </main>
 
