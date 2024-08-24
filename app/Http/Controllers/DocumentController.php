@@ -60,7 +60,7 @@ class DocumentController extends Controller
                 ]
             );
         } catch (Exception $e) {
-            return response()->json($e->getMessage(), 'Error al subir el archivo.');
+            return response()->json(['message' => $e->getMessage()], 500);
         }
 
         $url = $this->downloadLastDocument($fileName);
