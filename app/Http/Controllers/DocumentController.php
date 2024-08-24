@@ -35,19 +35,26 @@ class DocumentController extends Controller
         $newToll = new TemplateProcessor(Storage::path($filePath));
 
         //Reemplazar los valores de la plantilla
-        $newToll->setValues([
-            'code' => $validatedData['consecutive'],
-            'date' => $validatedData['date'],
-            'time' => $validatedData['time']
-        ]);
+        $newToll->setValues(
+            array(
+                'code' => $validatedData['consecutive'],
+                'date' => $validatedData['date'],
+                'time' => $validatedData['time']
+            )
+        );
 
-        // Definir la ruta del archivo de salida en '/tmp'
-        $outputFilePath = '/tmp/' . $fileName;
+        //Definir la ruta del archivo de salida
+        // $outputFilePath = 'output/' . $fileName;
 
-        // Guardar el archivo procesado en la ruta '/tmp'
-        $newToll->saveAs($outputFilePath);
+        //Guardar el archivo procesado
+        // $newToll->saveAs(Storage::path($outputFilePath));
 
         // Leer el archivo procesado
+        // $uploadedFile = fopen(Storage::path($outputFilePath), 'r');
+
+
+        $outputFilePath = '/tmp/' . $fileName;
+        $newToll->saveAs($outputFilePath);
         $uploadedFile = fopen($outputFilePath, 'r');
 
         // Subimos el archivo a Firebase Storage
@@ -60,7 +67,7 @@ class DocumentController extends Controller
                 ]
             );
         } catch (Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 500);
+            return response()->json(['message' => 'Error al subir el archivo.', 'error' => $e->getMessage()], 500);
         }
 
         $url = $this->downloadLastDocument($fileName);
