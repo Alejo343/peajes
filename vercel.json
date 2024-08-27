@@ -29,6 +29,10 @@
 
         "CACHE_DRIVER": "array",
         "LOG_CHANNEL": "stderr",
-        "SESSION_DRIVER": "cookie"
+        "SESSION_DRIVER": "cookie",
+
+        "FIREBASE_DATABASE_URL":"https://peajes-fdf5a-default-rtdb.firebaseio.com",
+        "FIREBASE_STORAGE_BUCKET_URL":"=gs://peajes-fdf5a.appspot.com"
+
     }
 }
