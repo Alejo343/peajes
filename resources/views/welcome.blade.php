@@ -45,6 +45,7 @@
 
             <main>
                 <div class="container mx-auto space-y-16">
+                    {{-- titulo --}}
                     <section>
                         <span
                             class="block mb-2 text-xs font-medium tracking-widest uppercase 
@@ -53,13 +54,16 @@
                         <h2 class="text-5xl font-bold lg:text-center text-gray-50">Construye el peaje</h2>
 
                     </section>
-                    <section class="grid gap-6 text-center lg:grid-cols-2 xl:grid-cols-5">
-                        <div class="w-full p-6 rounded-md sm:p-16 xl:col-span-2 bg-gray-900">
 
+
+                    {{-- form --}}
+                    <section class="grid gap-6 text-center lg:grid-cols-2 xl:grid-cols-5">
+
+                        <div class="w-full p-6 rounded-md sm:p-16 xl:col-span-2 bg-gray-900">
                             <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data"
                                 class="self-stretch space-y-3">
                                 @csrf
-                                <h3 class="mb-5 text-lg font-medium text-gray-900 dark:text-white">Donde?
+                                <h3 class="mb-5 text-lg font-medium text-gray-900 dark:text-white">Ubicación
                                 </h3>
                                 <ul class="grid grid-cols-3 w-full gap-6">
                                     <li>
@@ -162,65 +166,46 @@
                                     class="w-full py-2 font-semibold rounded bg-violet-400 text-gray-900">Descargar
                                 </button>
                             </form>
-                            <a href="{{ route('downloadlast') }}" class="btn btn-primary">
-                                Descargar Último Documento
-                            </a>
-
                         </div>
 
-                        <div class=" xl:col-span-3 rounded-md bg-gray-900">
+                        @auth
+                            <div class="w-full p-3 rounded-md sm:p-16 xl:col-span-1 bg-gray-900">
+                                <form action="{{ route('updateAll') }}" method="POST" enctype="multipart/form-data"
+                                    class="self-center space-y-3">
+                                    @csrf
+                                    @method('PUT')
 
-                        </div>
-                        {{-- <img src="" alt=""
-                            class="object-cover w-full h-full rounded-md xl:col-span-3 bg-gray-500"> --}}
+
+                                    @foreach ($values as $index => $value)
+                                        <div>
+                                            <label for="value{{ $index + 1 }}}"
+                                                class="mb-2 block">{{ $value->name }}:</label>
+                                            <input type="number" id="{{ $value->name }}"
+                                                name="values[{{ $value->id }}]" value="{{ $value->value }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
+                                                        focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                                                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                placeholder="000009999" required>
+                                        </div>
+                                    @endforeach
+                                    <div class="pt-6">
+                                        <button type="submit"
+                                            class="w-full py-2 font-semibold rounded bg-violet-400 text-gray-900">Actualizar
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="w-full p-6 rounded-md sm:p-16 xl:col-span-2 bg-gray-900">
+                                {{-- mismo codido --}}
+                            </div>
+                        @else
+                            <div class=" xl:col-span-3 rounded-md bg-gray-900">
+                                {{-- mismo codigo --}}
+                            </div>
+                        @endauth
+
                     </section>
-
-
-                    <section class="grid gap-6 text-center lg:grid-cols-2 xl:grid-cols-5">
-                        <div class="w-full p-6 rounded-md sm:p-16 xl:col-span-2 bg-gray-900">
-
-                            {{-- <form action="{{ route('create') }}" method="POST" enctype="multipart/form-data"
-                                class="self-stretch space-y-3">
-                                @csrf
-                                <h3 class="mb-5 text-lg font-medium text-gray-900 dark:text-white">Donde?
-                                </h3>
-
-                                <div>
-                                    <label for="title"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">title</label>
-                                    <input type="text" id="title" name="title"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-                                        focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="000009999" required />
-                                </div>
-
-                                <div>
-                                    <label for="content"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Concecutivo</label>
-                                    <input type="text" id="content" name="content"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-                                        focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="000009999" required />
-                                </div>
-
-                                <button type="submit"
-                                    class="w-full py-2 font-semibold rounded bg-violet-400 
-                                    text-gray-900">crear
-                                    usuario
-                                </button>
-                            </form> --}}
-
-                        </div>
-
-                        <div class=" xl:col-span-3 rounded-md bg-gray-900">
-
-                        </div>
-                        {{-- <img src="" alt=""
-                            class="object-cover w-full h-full rounded-md xl:col-span-3 bg-gray-500"> --}}
-                    </section>
-
                 </div>
             </main>
 
