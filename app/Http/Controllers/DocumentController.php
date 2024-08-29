@@ -54,9 +54,11 @@ class DocumentController extends Controller
         }
 
         if (Auth::guest()) {
-            return redirect('/')->with(['data' => $data]);
+            // return redirect('/')->with(['data' => $data]);
+            return view('welcome', ['data' => $data]);
         } else {
             $values = Values::all();
+            // return redirect('/')->with('success', 'Registros actualizados con éxito');
             return view('welcome', ['data' => $data, 'values' => $values]);
         }
     }

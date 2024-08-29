@@ -19,6 +19,12 @@
         "APP_URL": "https://peajes-f444.vercel.app",
         "APP_KEY": "base64:flQ7QTf1/WFt5ZZKpf/wjiR979ZNjyzjFV819UVu2Bo=",
 
+        "DB_CONNECTION":"pgsql",
+        "DB_HOST":"ep-plain-sea-a4p3k95l-pooler.us-east-1.aws.neon.tech",
+        "DB_PORT":"5432",
+        "DB_DATABASE":"verceldb",
+        "DB_USERNAME":"default",
+        "DB_PASSWORD":"endpoint=ep-plain-sea-a4p3k95l;soYv1tRgj9Dq",
         
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",

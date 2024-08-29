@@ -195,18 +195,10 @@
 
                             <div class="w-full p-4 rounded-md xl:col-span-2 bg-gray-900">
                                 @include('partials.formTable')
-
-                                @isset($data)
-                                    @include('partials.table', ['data' => $data])
-                                @endisset
                             </div>
                         @else
                             <div class="w-full p-4 rounded-md xl:col-span-3 bg-gray-900 ">
                                 @include('partials.formTable')
-
-                                @isset($data)
-                                    @include('partials.table', ['data' => $data])
-                                @endisset
                             </div>
                         @endauth
 

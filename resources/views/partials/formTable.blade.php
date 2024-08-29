@@ -17,4 +17,8 @@
             Enviar
         </button>
     </div>
+
+    @isset($data)
+        @include('partials.table', ['data' => $data])
+    @endisset
 </form>
