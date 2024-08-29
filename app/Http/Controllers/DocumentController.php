@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Document;
+use Carbon\Carbon;
 use App\Models\Values;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Illuminate\Support\Facades\Storage;
@@ -16,12 +17,41 @@ class DocumentController extends Controller
 {
     public function showWelcome()
     {
-        // Obtener los 3 registros de la tabla 'values'
         $values = Values::all();
 
-        // Pasar los registros a la vista welcome
         return view('welcome', compact('values'));
     }
+
+    public function addConsecutive(Request $request)
+    {
+        $validatedData = $request->validate([
+            'consecutive' => 'required|numeric',
+            'date' => 'required|date'
+        ]);
+
+        $data = array();
+
+        $date = Carbon::parse($validatedData['date']);
+        $consecutive = $validatedData['consecutive'];
+
+        $data = [
+            ['date' => $date->format('Y-m-d'), 'consecutive' => $consecutive],
+        ];
+
+        for ($i = 1; $i < 15; $i++) {
+            $newDate = $date->addDay();
+
+            $newConsecutive = $consecutive + 845 * $i;
+
+            $data[] = [
+                'date' => $newDate->format('Y-m-d'),
+                'consecutive' => $newConsecutive
+            ];
+        }
+
+        return view('welcome', ['data' => $data]);
+    }
+
     public function upload(Request $request)
     {
         $validatedData = $request->validate([
@@ -31,6 +61,7 @@ class DocumentController extends Controller
             'time' => 'required|date_format:H:i',
         ]);
 
+        // Buscar el valor del peaje en la base de datos
         $value = Values::where('name', $validatedData['option-toll'])->first();
 
         // Convertir la fecha a formato legible para el documento
@@ -45,7 +76,7 @@ class DocumentController extends Controller
         // Crear una instancia de TemplateProcessor con la ruta del archivo
         $newToll = new TemplateProcessor(Storage::path($filePath));
 
-        //Reemplazar los valores de la plantilla
+        // Reemplazar los valores de la plantilla
         $newToll->setValues(
             array(
                 'code' => $validatedData['consecutive'],

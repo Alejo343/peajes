@@ -55,11 +55,9 @@
 
                     </section>
 
-
-                    {{-- form --}}
                     <section class="grid gap-6 text-center lg:grid-cols-2 xl:grid-cols-5">
 
-                        <div class="w-full p-6 rounded-md sm:p-16 xl:col-span-2 bg-gray-900">
+                        <div class="w-full p-6 rounded-md xl:col-span-2 bg-gray-900">
                             <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data"
                                 class="self-stretch space-y-3">
                                 @csrf
@@ -169,12 +167,10 @@
                         </div>
 
                         @auth
-                            <div class="w-full p-3 rounded-md sm:p-16 xl:col-span-1 bg-gray-900">
-                                <form action="{{ route('updateAll') }}" method="POST" enctype="multipart/form-data"
-                                    class="self-center space-y-3">
+                            <div class="w-full p-4 rounded-md xl:col-span-1 bg-gray-900">
+                                <form action="{{ route('updateAll') }}" method="POST" class="self-center space-y-3">
                                     @csrf
                                     @method('PUT')
-
 
                                     @foreach ($values as $index => $value)
                                         <div>
@@ -188,6 +184,7 @@
                                                 placeholder="000009999" required>
                                         </div>
                                     @endforeach
+
                                     <div class="pt-6">
                                         <button type="submit"
                                             class="w-full py-2 font-semibold rounded bg-violet-400 text-gray-900">Actualizar
@@ -196,12 +193,20 @@
                                 </form>
                             </div>
 
-                            <div class="w-full p-6 rounded-md sm:p-16 xl:col-span-2 bg-gray-900">
-                                {{-- mismo codido --}}
+                            <div class="w-full p-4 rounded-md xl:col-span-2 bg-gray-900">
+                                @include('partials.formTable')
+
+                                @isset($data)
+                                    @include('partials.table', ['data' => $data])
+                                @endisset
                             </div>
                         @else
-                            <div class=" xl:col-span-3 rounded-md bg-gray-900">
-                                {{-- mismo codigo --}}
+                            <div class="w-full p-4 rounded-md xl:col-span-3 bg-gray-900 ">
+                                @include('partials.formTable')
+
+                                @isset($data)
+                                    @include('partials.table', ['data' => $data])
+                                @endisset
                             </div>
                         @endauth
 

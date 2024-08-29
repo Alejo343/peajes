@@ -16,12 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [DocumentController::class, 'showWelcome'])->name('welcome');
-
 Route::put('/updateAll', [DocumentController::class, 'updateAll'])->name('updateAll');
-
-
 Route::post('/', [DocumentController::class, 'upload'])->name('upload');
-Route::get('/documents/download-last', [DocumentController::class, 'downloadLastDocument'])->name('downloadlast');
+Route::post('/addConsecutive', [DocumentController::class, 'addConsecutive'])->name('addConsecutive');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
