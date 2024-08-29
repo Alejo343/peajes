@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [DocumentController::class, 'showWelcome'])->name('welcome');
-Route::put('/updateAll', [DocumentController::class, 'updateAll'])->name('updateAll');
+Route::get('/', [DocumentController::class, 'index']);
+Route::put('/updateValue', [DocumentController::class, 'updateValue'])->name('updateValue');
 Route::post('/', [DocumentController::class, 'upload'])->name('upload');
 Route::post('/addConsecutive', [DocumentController::class, 'addConsecutive'])->name('addConsecutive');
 

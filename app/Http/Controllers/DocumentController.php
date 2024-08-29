@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Document;
 use Carbon\Carbon;
 use App\Models\Values;
@@ -15,11 +16,14 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DocumentController extends Controller
 {
-    public function showWelcome()
+    public function index()
     {
-        $values = Values::all();
-
-        return view('welcome', compact('values'));
+        if (Auth::guest()) {
+            return view('welcome');
+        } else {
+            $values = Values::all();
+            return view('welcome', compact('values'));
+        }
     }
 
     public function addConsecutive(Request $request)
@@ -49,7 +53,12 @@ class DocumentController extends Controller
             ];
         }
 
-        return view('welcome', ['data' => $data]);
+        if (Auth::guest()) {
+            return redirect('/')->with(['data' => $data]);
+        } else {
+            $values = Values::all();
+            return view('welcome', ['data' => $data, 'values' => $values]);
+        }
     }
 
     public function upload(Request $request)
@@ -136,7 +145,7 @@ class DocumentController extends Controller
         return $doc;
     }
 
-    public function updateAll(Request $request)
+    public function updateValue(Request $request)
     {
         // Validar los datos del formulario
         $request->validate([
@@ -150,7 +159,6 @@ class DocumentController extends Controller
             $value->save();
         }
 
-        // Redirigir o devolver una respuesta
-        return redirect()->route('welcome')->with('success', 'Registros actualizados con éxito');
+        return redirect('/')->with('success', 'Registros actualizados con éxito');
     }
 }

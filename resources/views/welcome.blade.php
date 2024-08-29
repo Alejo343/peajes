@@ -168,7 +168,7 @@
 
                         @auth
                             <div class="w-full p-4 rounded-md xl:col-span-1 bg-gray-900">
-                                <form action="{{ route('updateAll') }}" method="POST" class="self-center space-y-3">
+                                <form action="{{ route('updateValue') }}" method="POST" class="self-center space-y-3">
                                     @csrf
                                     @method('PUT')
 
