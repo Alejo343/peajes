@@ -15,7 +15,7 @@
         }],
     "env": {
         "APP_ENV": "production",
-        "APP_DEBUG": "false",
+        "APP_DEBUG": "true",
         "APP_URL": "https://peajes-f444.vercel.app",
         "APP_KEY": "base64:flQ7QTf1/WFt5ZZKpf/wjiR979ZNjyzjFV819UVu2Bo=",
 
