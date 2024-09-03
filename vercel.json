@@ -24,9 +24,9 @@
         "DB_PORT":"5432",
         "DB_DATABASE":"verceldb",
         "DB_USERNAME":"default",
-        "DB_PASSWORD":"\"endpoint=ep-plain-sea-a4p3k95l;soYv1tRgj9Dq\"",
+        "DB_PASSWORD":"soYv1tRgj9Dq",
 
-        
+            
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
         "APP_PACKAGES_CACHE": "/tmp/packages.php",
