@@ -18,12 +18,12 @@ class DocumentController extends Controller
 {
     public function index()
     {
-        // if (Auth::guest()) {
-        //     return view('welcome');
-        // } else {
-        $values = Values::all();
-        return view('welcome', compact('values'));
-        // }
+        if (Auth::guest()) {
+            return view('welcome');
+        } else {
+            $values = Values::all();
+            return view('welcome', compact('values'));
+        }
     }
 
     public function addConsecutive(Request $request)

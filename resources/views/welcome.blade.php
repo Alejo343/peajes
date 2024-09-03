@@ -166,41 +166,41 @@
                             </form>
                         </div>
 
-                        {{-- @auth --}}
-                        <div class="w-full p-4 rounded-md xl:col-span-1 bg-gray-900">
-                            <form action="{{ route('updateValue') }}" method="POST" class="self-center space-y-3">
-                                @csrf
-                                @method('PUT')
+                        @auth
+                            <div class="w-full p-4 rounded-md xl:col-span-1 bg-gray-900">
+                                <form action="{{ route('updateValue') }}" method="POST" class="self-center space-y-3">
+                                    @csrf
+                                    @method('PUT')
 
-                                @foreach ($values as $index => $value)
-                                    <div>
-                                        <label for="value{{ $index + 1 }}}"
-                                            class="mb-2 block">{{ $value->name }}:</label>
-                                        <input type="number" id="{{ $value->name }}"
-                                            name="values[{{ $value->id }}]" value="{{ $value->value }}"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
+                                    @foreach ($values as $index => $value)
+                                        <div>
+                                            <label for="value{{ $index + 1 }}}"
+                                                class="mb-2 block">{{ $value->name }}:</label>
+                                            <input type="number" id="{{ $value->name }}"
+                                                name="values[{{ $value->id }}]" value="{{ $value->value }}"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
                                                         focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                                                         dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder="000009999" required>
+                                                placeholder="000009999" required>
+                                        </div>
+                                    @endforeach
+
+                                    <div class="pt-6">
+                                        <button type="submit"
+                                            class="w-full py-2 font-semibold rounded bg-violet-400 text-gray-900">Actualizar
+                                        </button>
                                     </div>
-                                @endforeach
+                                </form>
+                            </div>
 
-                                <div class="pt-6">
-                                    <button type="submit"
-                                        class="w-full py-2 font-semibold rounded bg-violet-400 text-gray-900">Actualizar
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="w-full p-4 rounded-md xl:col-span-2 bg-gray-900">
-                            @include('partials.formTable')
-                        </div>
-                        {{-- @else
+                            <div class="w-full p-4 rounded-md xl:col-span-2 bg-gray-900">
+                                @include('partials.formTable')
+                            </div>
+                        @else
                             <div class="w-full p-4 rounded-md xl:col-span-3 bg-gray-900 ">
                                 @include('partials.formTable')
                             </div>
-                        @endauth --}}
+                        @endauth
 
                     </section>
                 </div>
