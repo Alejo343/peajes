@@ -124,7 +124,7 @@ class DocumentController extends Controller
             return response()->json(['message' => 'Error al subir el archivo.', 'error' => $e->getMessage()], 500);
         }
 
-        unlink(Storage::path($outputFilePath));
+        // unlink(Storage::path($outputFilePath));
 
         // Obtener la URL para descargar el documento
         $url = $this->downloadLastDocument($fileName);
