@@ -98,18 +98,18 @@ class DocumentController extends Controller
         );
 
         // Definir la ruta del archivo de salida
-        $outputFilePath = 'output/' . $fileName;
+        // $outputFilePath = 'output/' . $fileName;
 
         // Guardar el archivo procesado
-        $newToll->saveAs(Storage::path($outputFilePath));
+        // $newToll->saveAs(Storage::path($outputFilePath));
 
         // Leer el archivo procesado
-        $uploadedFile = fopen(Storage::path($outputFilePath), 'r');
+        // $uploadedFile = fopen(Storage::path($outputFilePath), 'r');
 
 
-        // $outputFilePath = '/tmp/' . $fileName;
-        // $newToll->saveAs($outputFilePath);
-        // $uploadedFile = fopen($outputFilePath, 'r');
+        $outputFilePath = '/tmp/' . $fileName;
+        $newToll->saveAs($outputFilePath);
+        $uploadedFile = fopen($outputFilePath, 'r');
 
         // Subimos el archivo a Firebase Storage
         try {

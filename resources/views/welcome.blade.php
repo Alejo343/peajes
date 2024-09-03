@@ -65,8 +65,8 @@
                                 </h3>
                                 <ul class="grid grid-cols-3 w-full gap-6">
                                     <li>
-                                        <input type="radio" id="cencar" name="option-toll" value="CENCAR"
-                                            class="hidden peer" />
+                                        <input type="radio" id="cencar" name="option-toll" value="Cencar"
+                                            class="hidden peer" required />
                                         <label for="cencar"
                                             class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border 
                                             border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 
@@ -78,7 +78,7 @@
                                         </label>
                                     </li>
                                     <li>
-                                        <input type="radio" id="cerrito" name="option-toll" value="CERRITO"
+                                        <input type="radio" id="cerrito" name="option-toll" value="Cerrito"
                                             class="hidden peer">
                                         <label for="cerrito"
                                             class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border 
@@ -91,7 +91,7 @@
                                         </label>
                                     </li>
                                     <li>
-                                        <input type="radio" id="rozo" name="option-toll" value="ROZO"
+                                        <input type="radio" id="rozo" name="option-toll" value="Rozo"
                                             class="hidden peer">
                                         <label for="rozo"
                                             class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border 
