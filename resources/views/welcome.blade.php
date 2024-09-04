@@ -39,10 +39,7 @@
                 <div class="container mx-auto space-y-16">
                     {{-- titulo --}}
                     <section>
-                        <span
-                            class="block mb-2 text-xs font-medium tracking-widest uppercase 
-                            lg:text-center text-violet-400">Como
-                            funciona</span>
+
                         <h2 class="text-5xl font-bold lg:text-center text-gray-50">Construye el peaje</h2>
 
                     </section>
@@ -56,45 +53,9 @@
                                 <h3 class="mb-5 text-lg font-medium text-gray-900 dark:text-white">Ubicación
                                 </h3>
                                 <ul class="grid grid-cols-3 w-full gap-6">
-                                    <li>
-                                        <input type="radio" id="cencar" name="option-toll" value="Cencar"
-                                            class="hidden peer" required />
-                                        <label for="cencar"
-                                            class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border 
-                                                border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 
-                                                dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 
-                                                hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
-                                            <div class="block">
-                                                <div class="w-full text-lg font-semibold">Cencar</div>
-                                            </div>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" id="cerrito" name="option-toll" value="Cerrito"
-                                            class="hidden peer">
-                                        <label for="cerrito"
-                                            class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border 
-                                                border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 
-                                                dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 
-                                                hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
-                                            <div class="block">
-                                                <div class="w-full text-lg font-semibold">Cerrito</div>
-                                            </div>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <input type="radio" id="rozo" name="option-toll" value="Rozo"
-                                            class="hidden peer">
-                                        <label for="rozo"
-                                            class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border 
-                                            border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 
-                                            dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 
-                                            hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
-                                            <div class="block">
-                                                <div class="w-full text-lg font-semibold">Rozo</div>
-                                            </div>
-                                        </label>
-                                    </li>
+                                    <x-option-toll id="cencar" name="option-toll" value="Cencar" label="Cencar" />
+                                    <x-option-toll id="cerrito" name="option-toll" value="Cerrito" label="Cerrito" />
+                                    <x-option-toll id="rozo" name="option-toll" value="Rozo" label="Rozo" />
                                 </ul>
 
                                 <div>
@@ -172,6 +133,7 @@
                         </div>
 
                         @auth
+                            {{-- --FORMULARIO PARA CAMBAR EL VALOR DEL PEAJE-- --}}
                             <div class="w-full p-4 rounded-md xl:col-span-1 bg-gray-900">
                                 <form action="{{ route('updateValue') }}" method="POST" class="self-center space-y-3">
                                     @csrf
