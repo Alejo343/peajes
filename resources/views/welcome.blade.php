@@ -48,7 +48,7 @@
 
                         <div class="w-full p-6 rounded-md xl:col-span-2 bg-gray-900">
                             <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data"
-                                class="self-stretch space-y-3">
+                                class="spinner-form self-stretch space-y-3">
                                 @csrf
                                 <h3 class="mb-5 text-lg font-medium text-gray-900 dark:text-white">Ubicación
                                 </h3>
@@ -109,33 +109,14 @@
                                 <button type="submit"
                                     class="w-full py-2 font-semibold rounded bg-violet-400 text-gray-900">Descargar
                                 </button>
-
-                                <div class="flex items-center p-4 mb-4 text-sm text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800"
-                                    role="alert">
-                                    <x-svg-icon name="icon-info" class="flex-shrink-0 inline w-4 h-4 me-3"
-                                        aria-hidden="true" />
-                                    <span class="sr-only">Info</span>
-                                    <div>
-                                        <span class="font-medium">Creado correctamente</span>
-                                    </div>
-                                </div>
-
-                                <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
-                                    role="alert">
-                                    <x-svg-icon name="icon-info" class="flex-shrink-0 inline w-4 h-4 me-3"
-                                        aria-hidden="true" />
-                                    <span class="sr-only">Info</span>
-                                    <div>
-                                        <span class="font-medium">Faltan campos por llenar</span>
-                                    </div>
-                                </div>
                             </form>
                         </div>
 
                         @auth
                             {{-- --FORMULARIO PARA CAMBAR EL VALOR DEL PEAJE-- --}}
                             <div class="w-full p-4 rounded-md xl:col-span-1 bg-gray-900">
-                                <form action="{{ route('updateValue') }}" method="POST" class="self-center space-y-3">
+                                <form action="{{ route('updateValue') }}" method="POST"
+                                    class="spinner-form self-center space-y-3">
                                     @csrf
                                     @method('PUT')
 
@@ -154,9 +135,21 @@
 
                                     <div class="pt-6">
                                         <button type="submit"
-                                            class="w-full py-2 font-semibold rounded bg-violet-400 text-gray-900">Actualizar
+                                            class="submit-button w-full py-2 font-semibold rounded bg-violet-400 text-gray-900 flex items-center justify-center">
+                                            <span class="button-text">Actualizar</span>
+                                            <svg class="spinner hidden ml-2 animate-spin h-5 w-5 text-white"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <circle class="opacity-25" cx="12" cy="12" r="10"
+                                                    stroke="currentColor" stroke-width="4"></circle>
+                                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z">
+                                                </path>
+                                            </svg>
                                         </button>
                                     </div>
+
+                                    @if (session('success'))
+                                        <x-message />
+                                    @endif
                                 </form>
                             </div>
 
@@ -184,5 +177,22 @@
         </div>
     </div>
 </body>
+
+<script>
+    document.querySelectorAll('.spinner-form').forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            const button = form.querySelector('.submit-button');
+            const buttonText = button.querySelector('.button-text');
+            const spinner = button.querySelector('.spinner');
+
+            // Cambiar texto a spinner
+            buttonText.classList.add('hidden');
+            spinner.classList.remove('hidden');
+
+            // Deshabilitar el botón para evitar múltiples envíos
+            button.disabled = true;
+        });
+    })
+</script>
 
 </html>

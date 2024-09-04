@@ -21,7 +21,7 @@ class DocumentController extends Controller
         if (Auth::guest()) {
             return view('welcome');
         } else {
-            $values = Values::all();
+            $values = Values::orderBy('id')->get();
             return view('welcome', compact('values'));
         }
     }
@@ -54,11 +54,9 @@ class DocumentController extends Controller
         }
 
         if (Auth::guest()) {
-            // return redirect('/')->with(['data' => $data]);
             return view('welcome', ['data' => $data]);
         } else {
-            $values = Values::all();
-            // return redirect('/')->with('success', 'Registros actualizados con éxito');
+            $values = Values::orderBy('id')->get();
             return view('welcome', ['data' => $data, 'values' => $values]);
         }
     }
@@ -98,18 +96,18 @@ class DocumentController extends Controller
         );
 
         // Definir la ruta del archivo de salida
-        // $outputFilePath = 'output/' . $fileName;
+        $outputFilePath = 'output/' . $fileName;
 
         // Guardar el archivo procesado
-        // $newToll->saveAs(Storage::path($outputFilePath));
+        $newToll->saveAs(Storage::path($outputFilePath));
 
         // Leer el archivo procesado
-        // $uploadedFile = fopen(Storage::path($outputFilePath), 'r');
+        $uploadedFile = fopen(Storage::path($outputFilePath), 'r');
 
 
-        $outputFilePath = '/tmp/' . $fileName;
-        $newToll->saveAs($outputFilePath);
-        $uploadedFile = fopen($outputFilePath, 'r');
+        // $outputFilePath = '/tmp/' . $fileName;
+        // $newToll->saveAs($outputFilePath);
+        // $uploadedFile = fopen($outputFilePath, 'r');
 
         // Subimos el archivo a Firebase Storage
         try {
@@ -124,14 +122,14 @@ class DocumentController extends Controller
             return response()->json(['message' => 'Error al subir el archivo.', 'error' => $e->getMessage()], 500);
         }
 
-        // unlink(Storage::path($outputFilePath));
+        unlink(Storage::path($outputFilePath));
 
         // Obtener la URL para descargar el documento
-        $url = $this->downloadLastDocument($fileName);
+        $url = $this->urlDownloadDocument($fileName);
         return redirect()->away($url);
     }
 
-    public function downloadLastDocument($fileName)
+    public function urlDownloadDocument($fileName)
     {
         $expiresAt = new \DateTime('tomorrow');
 
@@ -161,6 +159,6 @@ class DocumentController extends Controller
             $value->save();
         }
 
-        return redirect('/')->with('success', 'Registros actualizados con éxito');
+        return redirect('/')->with('success', 'Peajes actualizados con éxito');
     }
 }
