@@ -77,7 +77,7 @@ class DocumentController extends Controller
         $validatedData['date'] = date('d/m/Y', strtotime($validatedData['date']));
 
         // define el nombre del nuevo archivo
-        $fileName = $validatedData['consecutive'] . '.docx';
+        $fileName = $validatedData['option-toll'] . '.docx';
 
         // encontrar el archivo de plantilla correspondiente al tipo de peaje
         $filePath = 'public/docs/' . $validatedData['option-toll'] . '.docx';
