@@ -95,19 +95,13 @@ class DocumentController extends Controller
             )
         );
 
-        // Definir la ruta del archivo de salida
-        $outputFilePath = 'output/' . $fileName;
+        // $outputFilePath = 'output/' . $fileName;
+        // $newToll->saveAs(Storage::path($outputFilePath));
+        // $uploadedFile = fopen(Storage::path($outputFilePath), 'r');
 
-        // Guardar el archivo procesado
-        $newToll->saveAs(Storage::path($outputFilePath));
-
-        // Leer el archivo procesado
-        $uploadedFile = fopen(Storage::path($outputFilePath), 'r');
-
-
-        // $outputFilePath = '/tmp/' . $fileName;
-        // $newToll->saveAs($outputFilePath);
-        // $uploadedFile = fopen($outputFilePath, 'r');
+        $outputFilePath = '/tmp/' . $fileName;
+        $newToll->saveAs($outputFilePath);
+        $uploadedFile = fopen($outputFilePath, 'r');
 
         // Subimos el archivo a Firebase Storage
         try {
@@ -122,7 +116,7 @@ class DocumentController extends Controller
             return response()->json(['message' => 'Error al subir el archivo.', 'error' => $e->getMessage()], 500);
         }
 
-        unlink(Storage::path($outputFilePath));
+        // unlink(Storage::path($outputFilePath));
 
         // Obtener la URL para descargar el documento
         $url = $this->urlDownloadDocument($fileName);

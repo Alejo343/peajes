@@ -14,7 +14,7 @@
         <button type="submit"
             class="submit-button text-gray-900 bg-violet-400 hover:bg-violet-500 focus:ring-4
             focus:bg-violet-600 rounded-lg text-sm px-4 py-2 focus:outline-none">
-            <span class="button-text">Actualizar</span>
+            <span class="button-text">Aceptar</span>
             <svg class="spinner hidden ml-2 animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
                 fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
