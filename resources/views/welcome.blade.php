@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="icon" type="image/png" href="{{ asset('icon.png') }}">
     <title>Peajes App</title>
 
     <!-- Styles & js -->
@@ -15,8 +15,8 @@
     <div class="min-h-screen bg-gray-800 text-gray-100">
         <div class="p-6 space-y-8">
             <header class="container flex items-center justify-between h-16 px-4 mx-auto rounded bg-gray-900">
-                <a rel="noopener noreferrer" href="#" aria-label="Homepage">
-                    <x-svg-icon name="icon-home_page" class="w-6 h-6 text-violet-400" />
+                <a rel="noopener noreferrer" aria-label="Homepage">
+                    <img src="{{ asset('icon.png') }}" alt="Icono" width="24" height="24">
                 </a>
 
                 <div class="items-center space-x-8 lg:flex">
