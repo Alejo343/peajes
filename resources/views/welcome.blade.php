@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="{{ asset('icon.png') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <title>Peajes App</title>
 
     <!-- Styles & js -->
@@ -40,7 +40,6 @@
                     {{-- titulo --}}
                     <section>
                         <h2 class="text-5xl font-bold lg:text-center text-gray-50">Construye el peaje</h2>
-                        <img src="{{ asset('icon.png') }}" alt="">
                     </section>
 
                     <section class="grid gap-6 text-center lg:grid-cols-2 xl:grid-cols-5">

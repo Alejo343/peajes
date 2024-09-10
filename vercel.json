@@ -10,7 +10,7 @@
             "dest": "/public/build/$1"
         },
         {
-            "src": "/(.*\\.(png|jpg|jpeg|gif|css|js))",
+            "src": "/(.*\\.(png|jpg|ico|jpeg|gif|css|js))",
             "dest": "/public/$1"
         },
         {
