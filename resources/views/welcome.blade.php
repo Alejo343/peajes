@@ -41,6 +41,7 @@
                     <section>
 
                         <h2 class="text-5xl font-bold lg:text-center text-gray-50">Construye el peaje</h2>
+                        <img src="{{ asset('icon.png') }}" alt="Icono">
 
                     </section>
 
