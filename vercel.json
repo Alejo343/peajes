@@ -4,29 +4,33 @@
     "functions": {
         "api/index.php": { "runtime": "vercel-php@0.5.4" }
     },
-    "routes": [    
+    "routes": [
         {
             "src": "/build/(.*)",
             "dest": "/public/build/$1"
         },
         {
+            "src": "/(.*\\.(png|jpg|jpeg|gif|css|js))",
+            "dest": "/public/$1"
+        },
+        {
             "src": "/(.*)",
             "dest": "/api/index.php"
-        }],
+        }
+    ],
     "env": {
         "APP_ENV": "production",
         "APP_DEBUG": "true",
         "APP_URL": "https://peajes-f444.vercel.app",
         "APP_KEY": "base64:flQ7QTf1/WFt5ZZKpf/wjiR979ZNjyzjFV819UVu2Bo=",
 
-        "DB_CONNECTION":"pgsql",
-        "DB_HOST":"ep-plain-sea-a4p3k95l-pooler.us-east-1.aws.neon.tech",
-        "DB_PORT":"5432",
-        "DB_DATABASE":"verceldb",
-        "DB_USERNAME":"default",
-        "DB_PASSWORD":"soYv1tRgj9Dq",
+        "DB_CONNECTION": "pgsql",
+        "DB_HOST": "ep-plain-sea-a4p3k95l-pooler.us-east-1.aws.neon.tech",
+        "DB_PORT": "5432",
+        "DB_DATABASE": "verceldb",
+        "DB_USERNAME": "default",
+        "DB_PASSWORD": "soYv1tRgj9Dq",
 
-            
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",
         "APP_PACKAGES_CACHE": "/tmp/packages.php",
@@ -38,8 +42,7 @@
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie",
 
-        "FIREBASE_DATABASE_URL":"https://peajes-fdf5a-default-rtdb.firebaseio.com",
-        "FIREBASE_STORAGE_BUCKET_URL":"=gs://peajes-fdf5a.appspot.com"
-
+        "FIREBASE_DATABASE_URL": "https://peajes-fdf5a-default-rtdb.firebaseio.com",
+        "FIREBASE_STORAGE_BUCKET_URL": "=gs://peajes-fdf5a.appspot.com"
     }
 }
