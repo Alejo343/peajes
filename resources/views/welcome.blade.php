@@ -41,6 +41,7 @@
                     <section>
                         <h2 class="text-5xl font-bold lg:text-center text-gray-50">Construye el peaje</h2>
                     </section>
+                    <img src="{{ asset('build/assets/icon.png') }}" alt="">
 
                     <section class="grid gap-6 text-center lg:grid-cols-2 xl:grid-cols-5">
 
