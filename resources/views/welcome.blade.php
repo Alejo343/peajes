@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="{{ asset('build/icon.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('build/assets/icon.png') }}">
     <title>Peajes App</title>
 
     <!-- Styles & js -->
@@ -16,7 +16,7 @@
         <div class="p-6 space-y-8">
             <header class="container flex items-center justify-between h-16 px-4 mx-auto rounded bg-gray-900">
                 <a rel="noopener noreferrer" aria-label="Homepage">
-                    <img src="{{ asset('build/icon.png') }}" alt="Icono" width="24" height="24">
+                    <img src="{{ asset('build/assets/icon.png') }}" alt="Icono" width="24" height="24">
                 </a>
 
                 <div class="items-center space-x-8 lg:flex">
@@ -41,7 +41,6 @@
                     <section>
                         <h2 class="text-5xl font-bold lg:text-center text-gray-50">Construye el peaje</h2>
                     </section>
-                    <img src="{{ asset('build/assets/icon.png') }}" alt="">
 
                     <section class="grid gap-6 text-center lg:grid-cols-2 xl:grid-cols-5">
 
