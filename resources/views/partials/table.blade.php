@@ -26,11 +26,12 @@
                                     focus:bg-violet-600 rounded-lg text-sm px-4 py-2 focus:outline-none">
                             <x-svg-icon name="icon-copy" class="w-4 h-4 text-black" aria-hidden="true" />
                         </button>
-                        <button
+                        <button onclick="openModal()"
                             class="text-gray-900 bg-violet-400 hover:bg-violet-500 focus:ring-4
                                     focus:bg-violet-600 rounded-lg text-sm px-4 py-2 focus:outline-none">
                             <x-svg-icon name="icon-save" class="w-4 h-4 text-black" aria-hidden="true" />
                         </button>
+
                     </td>
                 </tr>
             @endforeach

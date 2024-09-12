@@ -29,4 +29,6 @@
     @isset($data)
         @include('partials.table', ['data' => $data])
     @endisset
+
+    @include('partials.modal')
 </form>
