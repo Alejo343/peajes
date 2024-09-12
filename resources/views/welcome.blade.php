@@ -63,7 +63,7 @@
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
                                         focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                                         dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        placeholder="000009999" required />
+                                        placeholder="000009999" value="" required />
                                 </div>
 
                                 <div class="flex flex-wrap gap-6">
@@ -177,6 +177,7 @@
 </body>
 
 <script>
+    // Spinner de botones
     document.querySelectorAll('.spinner-form').forEach(function(form) {
         form.addEventListener('submit', function(event) {
             const button = form.querySelector('.submit-button');
@@ -191,6 +192,29 @@
             button.disabled = true;
         });
     })
+
+    // Llenar los campos del formulario cuando se hace click en un botón de relleno
+    document.querySelectorAll('.fill-form').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault(); // Evitar comportamiento por defecto del botón
+
+            // Obtener la fila de la tabla correspondiente
+            const row = this.closest('tr');
+            const consecutive = row.cells[1].textContent;
+
+            // Rellenar los campos del formulario
+            document.getElementById('consecutive').value = consecutive;
+        });
+    });
+
+    //manejo de modal
+    function openModal() {
+        document.getElementById('myModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+        document.getElementById('myModal').classList.add('hidden');
+    }
 </script>
 
 </html>
