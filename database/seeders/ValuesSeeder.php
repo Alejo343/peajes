@@ -14,22 +14,22 @@ class ValuesSeeder extends Seeder
     public function run(): void
     {
         Values::create([
-            'name' => 'CENCAR',
+            'name' => 'Cencar',
             'value' => 11500,
         ]);
 
         Values::create([
-            'name' => 'CERRITO',
+            'name' => 'Cerrito',
             'value' => 11500,
         ]);
 
         Values::create([
-            'name' => 'ROZO',
+            'name' => 'Rozo',
             'value' => 11500,
         ]);
 
         Values::create([
-            'name' => 'BETANIA',
+            'name' => 'Betania',
             'value' => 11500,
         ]);
     }

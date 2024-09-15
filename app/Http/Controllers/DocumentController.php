@@ -94,6 +94,10 @@ class DocumentController extends Controller
             'time' => 'required|date_format:H:i',
         ]);
 
+        if ($validatedData['option-toll'] == 'Betania_T-B') {
+            $validatedData['option-toll'] = 'Betania';
+        }
+
         // Buscar el valor del peaje en la base de datos
         $value = Values::where('name', $validatedData['option-toll'])->first();
 
