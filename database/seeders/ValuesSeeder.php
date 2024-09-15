@@ -15,17 +15,22 @@ class ValuesSeeder extends Seeder
     {
         Values::create([
             'name' => 'CENCAR',
-            'value' => 11000,
+            'value' => 11500,
         ]);
 
         Values::create([
             'name' => 'CERRITO',
-            'value' => 11000,
+            'value' => 11500,
         ]);
 
         Values::create([
             'name' => 'ROZO',
-            'value' => 11000,
+            'value' => 11500,
+        ]);
+
+        Values::create([
+            'name' => 'BETANIA',
+            'value' => 11500,
         ]);
     }
 }

@@ -54,6 +54,8 @@
                                     <x-option-toll id="cencar" name="option-toll" value="Cencar" label="Cencar" />
                                     <x-option-toll id="cerrito" name="option-toll" value="Cerrito" label="Cerrito" />
                                     <x-option-toll id="rozo" name="option-toll" value="Rozo" label="Rozo" />
+                                    <x-option-toll id="Betania_T-B" name="option-toll" value="Betania_T-B"
+                                        label="Betania_T-B" />
                                 </ul>
 
                                 <div>

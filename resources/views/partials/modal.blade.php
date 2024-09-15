@@ -11,7 +11,6 @@
             <p class="flex-1 dark:text-gray-600">No sea golosa
             </p>
 
-
             {{-- <div>
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre del
                     consecutivo</label>
