@@ -159,6 +159,7 @@
                                 @include('partials.formTable')
                             </div>
                         @endauth
+                        @include('partials.modal')
 
                     </section>
                 </div>
