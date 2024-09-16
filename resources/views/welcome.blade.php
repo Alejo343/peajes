@@ -197,21 +197,55 @@
         });
     })
 
-    // Llenar los campos del formulario cuando se hace click en un botón de relleno
-    document.querySelectorAll('.fill-form').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault(); // Evitar comportamiento por defecto del botón
+    //Manejo del envio del formulario de sumar
+    document.getElementById('dataForm').addEventListener('submit', function(e) {
+        e.preventDefault();
 
-            // Obtener la fila de la tabla correspondiente
-            const row = this.closest('tr');
-            const consecutive = row.cells[1].textContent;
-            const date = row.cells[0].textContent;
+        const date = new Date(document.getElementById('dateAdd').value);
+        const consecutive = parseInt(document.getElementById('consecutiveAdd').value, 10);
 
-            // Rellenar los campos del formulario
-            document.getElementById('consecutive').value = consecutive;
-            document.getElementById('date').value = date.trim();
-        });
+        if (isNaN(consecutive) || !date) {
+            alert("Por favor, ingrese un consecutivo válido y una fecha.");
+            return;
+        }
+
+        const data = [];
+        const length = consecutive.toString().length;
+
+        for (let i = 0; i < 15; i++) {
+            const newDate = new Date(date);
+            newDate.setDate(date.getDate() + i);
+            const newConsecutive = (consecutive + 845 * i).toString().padStart(length, '0');
+            data.push({
+                date: newDate.toISOString().split('T')[0],
+                consecutive: newConsecutive
+            });
+        }
+        console.log(data);
+
+        const tbody = document.getElementById('resultsTable').querySelector('tbody');
+        tbody.innerHTML = data.map(item => `
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">${item.date}</td>
+                <td class="px-6 py-4">${item.consecutive}</td>
+                <td class="px-6 py-4">
+                    <button class="fill-form text-gray-900 bg-violet-400 hover:bg-violet-500 focus:ring-4 focus:bg-violet-600 rounded-lg text-sm px-4 py-2 focus:outline-none"
+                        onclick="fillForm('${item.date}', '${item.consecutive}')">
+                        <x-svg-icon name="icon-copy" class="w-4 h-4 text-black" aria-hidden="true" />
+                    </button>
+                    <button class="text-gray-900 bg-violet-400 hover:bg-violet-500 focus:ring-4 focus:bg-violet-600 rounded-lg text-sm px-4 py-2 focus:outline-none"
+                        onclick="openModal()">
+                        <x-svg-icon name="icon-save" class="w-4 h-4 text-black" aria-hidden="true" />
+                    </button>
+                </td>
+            </tr>
+        `).join('');
     });
+
+    function fillForm(date, consecutive) {
+        document.getElementById('date').value = date;
+        document.getElementById('consecutive').value = consecutive;
+    }
 
     //manejo de modal
     function openModal() {
