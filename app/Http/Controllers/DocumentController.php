@@ -25,65 +25,6 @@ class DocumentController extends Controller
         }
     }
 
-    /**
-     * Sumar 845 al concecutivo 15 veces y enviarlo para una tabla
-     *
-     * @param  \Illuminate\Http\Request  $request The request object containing the consecutive number and date.
-     * @return \Illuminate\Contracts\View\View Returns the 'welcome' view with the calculated data.
-     * If the user is authenticated, it also includes the list of values.
-     */
-    public function addConsecutive(Request $request)
-    {
-        // Validate the request data
-        $validatedData = $request->validate([
-            'consecutive' => 'required|numeric',
-            'date' => 'required|date'
-        ]);
-
-        $data = array();
-
-        // Parse the date and initialize the consecutive number
-        $date = Carbon::parse($validatedData['date']);
-        $consecutive = $validatedData['consecutive'];
-
-        // Add the initial date and consecutive number to the data array
-        $data = [
-            ['date' => $date->format('Y-m-d'), 'consecutive' => $consecutive],
-        ];
-
-        // Calculate the original length of the consecutive string once
-        $length = strlen($consecutive);
-
-        // Calculate the new date and consecutive number for the next 14 days
-        for ($i = 1; $i < 15; $i++) {
-            $newDate = $date->addDay();
-
-            // Convert consecutive to integer and perform the sum
-            $newConsecutive = (int)$consecutive + 845 * $i;
-
-            // Convert back to string and maintain leading zeros with the original length
-            $formattedConsecutive = str_pad($newConsecutive, $length, '0', STR_PAD_LEFT);
-
-            // Add the new date and consecutive number to the data array
-            $data[] = [
-                'date' => $newDate->format('Y-m-d'),
-                'consecutive' => $formattedConsecutive
-            ];
-        }
-
-        // Check if the user is authenticated
-        if (Auth::guest()) {
-            // Return the 'welcome' view with the calculated data
-            return view('welcome', ['data' => $data]);
-        } else {
-            // Fetch the list of values from the database
-            $values = Values::orderBy('id')->get();
-
-            // Return the 'welcome' view with the calculated data and the list of values
-            return view('welcome', ['data' => $data, 'values' => $values]);
-        }
-    }
-
     public function upload(Request $request)
     {
         $validatedData = $request->validate([
