@@ -19,6 +19,7 @@ Route::get('/', [DocumentController::class, 'index']);
 Route::put('/updateValue', [DocumentController::class, 'updateValue'])->name('updateValue');
 Route::post('/', [DocumentController::class, 'upload'])->name('upload');
 Route::post('/addConsecutive', [DocumentController::class, 'addConsecutive'])->name('addConsecutive');
+Route::post('/saveConsecutive', [DocumentController::class, 'saveConsecutive'])->name('saveConsecutive');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

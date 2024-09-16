@@ -50,12 +50,12 @@
                                 @csrf
                                 <h3 class="mb-5 text-lg font-medium text-gray-900 dark:text-white">Ubicación
                                 </h3>
-                                <ul class="grid grid-cols-3 w-full gap-6">
+                                <ul class="grid grid-cols-3 w-full gap-5 items-center">
                                     <x-option-toll id="cencar" name="option-toll" value="Cencar" label="Cencar" />
                                     <x-option-toll id="cerrito" name="option-toll" value="Cerrito" label="Cerrito" />
                                     <x-option-toll id="rozo" name="option-toll" value="Rozo" label="Rozo" />
                                     <x-option-toll id="Betania_T-B" name="option-toll" value="Betania_T-B"
-                                        label="Betania_T-B" />
+                                        label="Betania T-B" />
                                 </ul>
 
                                 <div>
@@ -161,6 +161,7 @@
                                 @include('partials.formTable')
                             </div>
                         @endauth
+
                         @include('partials.modal')
 
                     </section>
@@ -171,7 +172,7 @@
                 <div class="container flex justify-between p-6 mx-auto lg:p-8 bg-gray-900">
                     <a rel="noopener noreferrer" href="#" class="font-bold"></a>
                     <div class="flex space-x-2">
-                        <a rel="noopener noreferrer" href="#" class="font-bold">DavidG B)</a>
+                        <a rel="noopener noreferrer" href="#" class="font-bold">DavidG</a>
                     </div>
                 </div>
             </footer>

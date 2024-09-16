@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Document;
 use Carbon\Carbon;
 use App\Models\Values;
 use PhpOffice\PhpWord\TemplateProcessor;

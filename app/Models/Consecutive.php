@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Document extends Model
+class Consecutive extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'base64'
+        'code',
+        'name'
     ];
 }
