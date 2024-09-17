@@ -43,7 +43,6 @@
                     </section>
 
                     <section class="grid gap-6 text-center lg:grid-cols-2 xl:grid-cols-5">
-
                         <div class="w-full p-6 rounded-md xl:col-span-2 bg-gray-900">
                             <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data"
                                 class="spinner-form self-stretch space-y-3">
@@ -162,7 +161,15 @@
 
                         @include('partials.modal')
 
+                        <div class="w-full p-6 rounded-md xl:col-span-2 bg-gray-900">
+                        </div>
+                        <div class="w-full p-4 rounded-md xl:col-span-3 bg-gray-900 ">
+                            @include('components.alert')
+                            @include('partials.savesConsecutivesTable')
+                        </div>
                     </section>
+
+                    <sectioon>
                 </div>
             </main>
 

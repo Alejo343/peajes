@@ -24,11 +24,14 @@ class DocumentController extends Controller
     public function index()
     {
         if (Auth::guest()) {
-            return view('welcome');
-        } else {
-            $values = Values::orderBy('id')->get();
-            return view('welcome', compact('values'));
+            $consecutives = Consecutive::all();
+            return view('welcome', compact('consecutives'));
         }
+
+        $values = Values::orderBy('id')->get();
+        $consecutives = Consecutive::all();
+
+        return view('welcome', compact('values', 'consecutives'));
     }
 
     public function upload(Request $request)
@@ -173,6 +176,27 @@ class DocumentController extends Controller
         return redirect('/')->with('message', [
             'type' => 'success',
             'text' => 'Consecutivo guardado'
+        ]);
+    }
+
+    //show all consecutives
+    public function showConsecutives()
+    {
+        $consecutives = Consecutive::all();
+        return view('consecutives', compact('consecutives'));
+    }
+
+    //delte consecutive
+    public function destroyConsecutive($id)
+    {
+        $consecutive = Consecutive::find($id);
+        if ($consecutive) {
+            $consecutive->delete();
+            return redirect('/');
+        }
+        return redirect('/')->with('message', [
+            'type' => 'error',
+            'text' => 'Error al eliminar, intenta de nuevo'
         ]);
     }
 
