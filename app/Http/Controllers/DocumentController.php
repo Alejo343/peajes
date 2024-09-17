@@ -152,24 +152,29 @@ class DocumentController extends Controller
     public function saveConsecutive(Request $request)
     {
         $validatedData = $request->validate([
-            'consecutive' => 'required|numeric',
+            'date' => 'required|date',
             'name' => 'required|string',
+            'consecutive' => 'required|numeric',
         ]);
 
+        //Cambia la clave consecutive por code
+        $validatedData['code'] = $validatedData['consecutive'];
+        unset($validatedData['consecutive']);
+
         try {
-            $consecutive = new Consecutive();
-            $consecutive->code = $validatedData['consecutive'];
-            $consecutive->name = $validatedData['name'];
-            $consecutive->save();
+            Consecutive::create($validatedData);
         } catch (Exception $e) {
-            return redirect('/')
-                ->with('errorSaveConsecutive', 'Error al guardar el consecutivo: ' . $e->getMessage());
+            return redirect('/')->with('message', [
+                'type' => 'error',
+                'text' => 'Error al guardar elsecutivo: ' . $e->getMessage()
+            ]);
         }
 
-        // return redirect('/')->with('successSaveConsecutive', 'Consecutivo guardado con éxito');
         return redirect('/')->with('message', [
             'type' => 'success',
             'text' => 'Consecutivo guardado'
         ]);
     }
+
+    //TODO: Metodo para guardar la distacncia entre cada trayecto
 }

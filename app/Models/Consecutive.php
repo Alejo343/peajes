@@ -11,6 +11,7 @@ class Consecutive extends Model
 
     protected $fillable = [
         'code',
-        'name'
+        'name',
+        'date'
     ];
 }

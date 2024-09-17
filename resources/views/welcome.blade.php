@@ -232,7 +232,7 @@
                         <x-svg-icon name="icon-copy" class="w-4 h-4 text-black" aria-hidden="true" />
                     </button>
                     <button class="text-gray-900 bg-violet-400 hover:bg-violet-500 focus:ring-4 focus:bg-violet-600 rounded-lg text-sm px-4 py-2 focus:outline-none"
-                        onclick="openModal()">
+                        onclick="openModal('${item.date}', '${item.consecutive}')">
                         <x-svg-icon name="icon-save" class="w-4 h-4 text-black" aria-hidden="true" />
                     </button>
                 </td>
@@ -246,8 +246,10 @@
     }
 
     //manejo de modal
-    function openModal() {
+    function openModal(date, consecutive) {
         document.getElementById('myModal').classList.remove('hidden');
+        document.getElementById('id-save-consecutive').value = consecutive;
+        document.getElementById('id-save-date').value = date;
     }
 
     function closeModal() {
