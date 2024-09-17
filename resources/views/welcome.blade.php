@@ -147,9 +147,7 @@
                                         </button>
                                     </div>
 
-                                    @if (session('success'))
-                                        <x-message />
-                                    @endif
+                                    @include('components.alert')
                                 </form>
                             </div>
 

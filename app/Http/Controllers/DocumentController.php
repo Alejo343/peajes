@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\Values;
+use App\Models\Consecutive;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Illuminate\Support\Facades\Storage;
 use Exception;
@@ -15,6 +16,11 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DocumentController extends Controller
 {
+    /**
+     * Displays the welcome page with the list of tolls or redirects to the login page if the user is not authenticated.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function index()
     {
         if (Auth::guest()) {
@@ -136,6 +142,34 @@ class DocumentController extends Controller
             $value->save();
         }
 
-        return redirect('/')->with('success', 'Peajes actualizados con éxito');
+        // return redirect('/')->with('success', 'Peajes actualizados con éxito');
+        return redirect('/')->with('message', [
+            'type' => 'success',
+            'text' => 'Peajes actualizados con éxito'
+        ]);
+    }
+
+    public function saveConsecutive(Request $request)
+    {
+        $validatedData = $request->validate([
+            'consecutive' => 'required|numeric',
+            'name' => 'required|string',
+        ]);
+
+        try {
+            $consecutive = new Consecutive();
+            $consecutive->code = $validatedData['consecutive'];
+            $consecutive->name = $validatedData['name'];
+            $consecutive->save();
+        } catch (Exception $e) {
+            return redirect('/')
+                ->with('errorSaveConsecutive', 'Error al guardar el consecutivo: ' . $e->getMessage());
+        }
+
+        // return redirect('/')->with('successSaveConsecutive', 'Consecutivo guardado con éxito');
+        return redirect('/')->with('message', [
+            'type' => 'success',
+            'text' => 'Consecutivo guardado'
+        ]);
     }
 }
