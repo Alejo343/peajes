@@ -43,20 +43,10 @@ class DocumentController extends Controller
             'time' => 'required|date_format:H:i',
         ]);
 
-        // Almacenar el valor original de la variable
-        $originalOptionToll = $validatedData['option-toll'];
-
-        // Modificar el valor solo para el caso específico
-        if ($validatedData['option-toll'] == 'Betania_T-B') {
-            $validatedData['option-toll'] = 'Betania';
-        }
-
         // Buscar el valor del peaje en la base de datos
         $value = Values::where('name', $validatedData['option-toll'])->first();
 
-        // Restaurar el valor original
-        $validatedData['option-toll'] = $originalOptionToll;
-
+        //TODO: Cambiar el formato de fecha para betania
         // Convertir la fecha a formato legible para el documento
         $validatedData['date'] = date('d/m/Y', strtotime($validatedData['date']));
 

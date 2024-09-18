@@ -43,9 +43,8 @@
 
                     <section class="grid gap-6 text-center lg:grid-cols-2 xl:grid-cols-5">
                         <div class="w-full p-6 rounded-md xl:col-span-2 bg-gray-900">
-
-                            @include('partials.formDownload')
-
+                            <h4 class="text-2xl font-bold dark:text-white mb-1">Generar peaje</h3>
+                                @include('partials.formDownload')
                         </div>
 
                         @auth
@@ -58,22 +57,22 @@
                             </div>
                         @else
                             <div class="w-full p-4 rounded-md xl:col-span-3 bg-gray-900 ">
-                                <h4 class="text-2xl font-bold dark:text-white mb-1">Generar consecutivos</h3>
-                                    @include('partials.formGenConsecutives')
+                                <h4 class="text-2xl font-bold dark:text-white mb-1">Generar consecutivos</h4>
+                                @include('partials.formGenConsecutives')
                             </div>
                         @endauth
 
                         @include('partials.modal')
 
                         <div class="w-full p-6 rounded-md xl:col-span-2 bg-gray-900">
-                            <h4 class="text-2xl font-bold dark:text-white mb-1">Distancias entre peajes</h3>
+                            <h4 class="text-2xl font-bold dark:text-white mb-1">Distancias entre peajes</h4>
                         </div>
 
                         <div class="w-full p-4 rounded-md xl:col-span-3 bg-gray-900 ">
-                            <h4 class="text-2xl font-bold dark:text-white mb-1">Consecutivos guardados</h3>
-                                @include('components.alert')
+                            <h4 class="text-2xl font-bold dark:text-white mb-1">Consecutivos guardados</h4>
+                            @include('components.alert')
 
-                                @include('partials.savesConsecutivesTable')
+                            @include('partials.savesConsecutivesTable')
                         </div>
                     </section>
 

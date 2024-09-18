@@ -1,22 +1,28 @@
 <form action="{{ route('upload') }}" method="POST" enctype="multipart/form-data"
     class="spinner-form self-stretch space-y-3">
     @csrf
-    <h3 class="mb-5 text-lg font-medium text-gray-900 dark:text-white">Ubicación
-    </h3>
-    <ul class="grid grid-cols-3 w-full gap-5 items-center">
+    <label for="consecutive" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ubicación</label>
+    {{-- <ul class="grid grid-cols-3 w-full gap-5 items-center"> --}}
+    <ul class="flex space-x-4 items-center">
         <x-option-toll id="cencar" name="option-toll" value="Cencar" label="Cencar" />
         <x-option-toll id="cerrito" name="option-toll" value="Cerrito" label="Cerrito" />
         <x-option-toll id="rozo" name="option-toll" value="Rozo" label="Rozo" />
-        <x-option-toll id="Betania_T-B" name="option-toll" value="Betania_T-B" label="Betania T-B" />
+        <x-option-toll id="Betania" name="option-toll" value="Betania" label="Betania" />
     </ul>
+    <div id="additional-option" class="hidden mt-4">
+        <ul class="flex space-x-4 items-center">
+            <x-option-toll id="B_T-B" name="option-toll" value="B_T-B" label="Tulua - Buga" />
+            <x-option-toll id="B_B-T" name="option-toll" value="B_B-T" label="Buga - Tulua" />
+        </ul>
+    </div>
 
     <div>
         <label for="consecutive"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Concecutivo</label>
         <input type="number" id="consecutive" name="consecutive"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-                                        focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                    dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="000009999" value="" required />
     </div>
 
@@ -30,8 +36,8 @@
                 </div>
                 <input datepicker id="date" type="date" name="date"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-                                                focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                                                dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     value="" required>
             </div>
         </div>
@@ -44,8 +50,8 @@
                 </div>
                 <input type="time" id="time" name="time"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
-                                                focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
-                                                dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                        dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     value="00:00" required />
             </div>
         </div>
@@ -54,3 +60,18 @@
     <button type="submit" class="w-full py-2 font-semibold rounded bg-violet-400 text-gray-900">Descargar
     </button>
 </form>
+
+<script>
+    document.querySelectorAll('input[name="option-toll"]').forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            const additionalOption = document.getElementById('additional-option');
+            if (this.value === 'Betania') {
+                additionalOption.classList.remove('hidden');
+            } else {
+                if (!(this.value === 'B_T-B' || this.value === 'B_B-T')) {
+                    additionalOption.classList.add('hidden');
+                }
+            }
+        });
+    });
+</script>
