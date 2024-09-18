@@ -36,20 +36,6 @@
                     </td>
                 </tr>
             @endforeach
-            {{-- <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">${item.date}</td>
-                <td class="px-6 py-4">${item.consecutive}</td>
-                <td class="px-6 py-4">
-                    <button class="fill-form text-gray-900 bg-violet-400 hover:bg-violet-500 focus:ring-4 focus:bg-violet-600 rounded-lg text-sm px-4 py-2 focus:outline-none"
-                        onclick="fillForm('${item.date}', '${item.consecutive}')">
-                        <x-svg-icon name="icon-copy" class="w-4 h-4 text-black" aria-hidden="true" />
-                    </button>
-                    <button class="text-gray-900 bg-violet-400 hover:bg-violet-500 focus:ring-4 focus:bg-violet-600 rounded-lg text-sm px-4 py-2 focus:outline-none"
-                        onclick="openModal('${item.date}', '${item.consecutive}')">
-                        <x-svg-icon name="icon-save" class="w-4 h-4 text-black" aria-hidden="true" />
-                    </button>
-                </td>
-            </tr> --}}
         </tbody>
     </table>
 </div>

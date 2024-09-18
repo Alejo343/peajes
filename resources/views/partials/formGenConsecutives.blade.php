@@ -27,4 +27,4 @@
 
 @include('components.alert')
 
-@include('partials.table')
+@include('partials.tableGenConsecutives')
