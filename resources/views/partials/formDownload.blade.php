@@ -7,14 +7,16 @@
         <x-option-toll id="cencar" name="option-toll" value="Cencar" label="Cencar" />
         <x-option-toll id="cerrito" name="option-toll" value="Cerrito" label="Cerrito" />
         <x-option-toll id="rozo" name="option-toll" value="Rozo" label="Rozo" />
-        <x-option-toll id="Betania" name="option-toll" value="Betania" label="Betania" />
+        {{-- <div id="div_Betania" class=""> --}}
+        {{-- <x-option-toll id="Betania" name="option-toll" value="Betania" label="Betania" /> --}}
+        {{-- </div> --}}
     </ul>
-    <div id="additional-option" class="hidden mt-4">
-        <ul class="flex space-x-4 items-center">
-            <x-option-toll id="B_T-B" name="option-toll" value="B_T-B" label="Tulua - Buga" />
-            <x-option-toll id="B_B-T" name="option-toll" value="B_B-T" label="Buga - Tulua" />
-        </ul>
-    </div>
+    {{-- <div id="additional-option" class="hidden mt-4"> --}}
+    <ul class="flex space-x-4 items-center">
+        <x-option-toll id="B_T-B" name="option-toll" value="B_T-B" label="Betania: Tulua - Buga" />
+        <x-option-toll id="B_B-T" name="option-toll" value="B_B-T" label="Betania: Buga - Tulua" />
+    </ul>
+    {{-- </div> --}}
 
     <div>
         <label for="consecutive"
@@ -61,17 +63,4 @@
     </button>
 </form>
 
-<script>
-    document.querySelectorAll('input[name="option-toll"]').forEach(function(radio) {
-        radio.addEventListener('change', function() {
-            const additionalOption = document.getElementById('additional-option');
-            if (this.value === 'Betania') {
-                additionalOption.classList.remove('hidden');
-            } else {
-                if (!(this.value === 'B_T-B' || this.value === 'B_B-T')) {
-                    additionalOption.classList.add('hidden');
-                }
-            }
-        });
-    });
-</script>
+<script></script>

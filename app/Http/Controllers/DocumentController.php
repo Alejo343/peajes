@@ -43,12 +43,32 @@ class DocumentController extends Controller
             'time' => 'required|date_format:H:i',
         ]);
 
-        // Buscar el valor del peaje en la base de datos
-        $value = Values::where('name', $validatedData['option-toll'])->first();
-
-        //TODO: Cambiar el formato de fecha para betania
         // Convertir la fecha a formato legible para el documento
         $validatedData['date'] = date('d/m/Y', strtotime($validatedData['date']));
+
+        // Definir los valores para el documento
+        $values = array(
+            'code' => $validatedData['consecutive'],
+            'time' => $validatedData['time']
+        );
+
+        if ($validatedData['option-toll'] === 'B_T-B' || $validatedData['option-toll'] === 'B_B-T') {
+            if ($validatedData['option-toll'] === 'B_T-B') {
+                $values['direction'] = 'TULUA-BUGA';
+                // dd('tulua buga');
+            }
+            if ($validatedData['option-toll'] === 'B_B-T') {
+                $values['direction'] = 'BUGA-TULUA';
+                // dd('buga tulua');
+            }
+            $validatedData['option-toll'] = 'Betania';
+        }
+
+        $values['date'] = $validatedData['date'];
+
+        // Busca y asigna el valor del peaje en la base de datos
+        $value = Values::where('name', $validatedData['option-toll'])->first();
+        $values['value'] = $value->value;
 
         // define el nombre del nuevo archivo
         $fileName = $validatedData['option-toll'] . '.docx';
@@ -59,15 +79,8 @@ class DocumentController extends Controller
         // Crear una instancia de TemplateProcessor con la ruta del archivo
         $newToll = new TemplateProcessor(Storage::path($filePath));
 
-        // Reemplazar los valores de la plantilla
-        $newToll->setValues(
-            array(
-                'code' => $validatedData['consecutive'],
-                'date' => $validatedData['date'],
-                'time' => $validatedData['time'],
-                'value' => $value['value'],
-            )
-        );
+        // Asignar los valores a $newToll
+        $newToll->setValues($values);
 
         // $outputFilePath = 'output/' . $fileName;
         // $newToll->saveAs(Storage::path($outputFilePath));
