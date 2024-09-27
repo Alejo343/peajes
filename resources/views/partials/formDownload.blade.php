@@ -13,8 +13,10 @@
     </ul>
     {{-- <div id="additional-option" class="hidden mt-4"> --}}
     <ul class="flex space-x-4 items-center">
-        <x-option-toll id="B_T-B" name="option-toll" value="B_T-B" label="Betania: Tulua - Buga" />
-        <x-option-toll id="B_B-T" name="option-toll" value="B_B-T" label="Betania: Buga - Tulua" />
+        <x-option-toll id="Betania_Tulua_Buga" name="option-toll" value="Betania_Tulua_Buga"
+            label="Betania: Tulua - Buga" />
+        <x-option-toll id="Betania_Buga_Tulua" name="option-toll" value="Betania_Buga_Tulua"
+            label="Betania: Buga - Tulua" />
     </ul>
     {{-- </div> --}}
 

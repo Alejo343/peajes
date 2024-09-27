@@ -52,12 +52,12 @@ class DocumentController extends Controller
             'time' => $validatedData['time']
         );
 
-        if ($validatedData['option-toll'] === 'B_T-B' || $validatedData['option-toll'] === 'B_B-T') {
-            if ($validatedData['option-toll'] === 'B_T-B') {
+        if ($validatedData['option-toll'] == 'Betania_Tulua_Buga' || $validatedData['option-toll'] == 'Betania_Buga_Tulua') {
+            if ($validatedData['option-toll'] == 'Betania_Tulua_Buga') {
                 $values['direction'] = 'TULUA-BUGA';
                 // dd('tulua buga');
             }
-            if ($validatedData['option-toll'] === 'B_B-T') {
+            if ($validatedData['option-toll'] == 'Betania_Buga_Tulua') {
                 $values['direction'] = 'BUGA-TULUA';
                 // dd('buga tulua');
             }
@@ -71,7 +71,7 @@ class DocumentController extends Controller
         $values['value'] = $value->value;
 
         // define el nombre del nuevo archivo
-        $fileName = $validatedData['option-toll'] . '.docx';
+        $fileName = $validatedData['option-toll']  . '-' . $validatedData['consecutive'] . '.docx';
 
         // encontrar el archivo de plantilla correspondiente al tipo de peaje
         $filePath = 'public/docs/' . $validatedData['option-toll'] . '.docx';
@@ -82,13 +82,17 @@ class DocumentController extends Controller
         // Asignar los valores a $newToll
         $newToll->setValues($values);
 
+        // // Para trabajr local{
         // $outputFilePath = 'output/' . $fileName;
         // $newToll->saveAs(Storage::path($outputFilePath));
         // $uploadedFile = fopen(Storage::path($outputFilePath), 'r');
+        // // }
 
+        // para trabajar en deployment{
         $outputFilePath = '/tmp/' . $fileName;
         $newToll->saveAs($outputFilePath);
         $uploadedFile = fopen($outputFilePath, 'r');
+        // }
 
         // Subimos el archivo a Firebase Storage
         try {
@@ -103,6 +107,7 @@ class DocumentController extends Controller
             return response()->json(['message' => 'Error al subir el archivo.', 'error' => $e->getMessage()], 500);
         }
 
+        // Eliminamos el archivo temporalmente almacenado
         // unlink(Storage::path($outputFilePath));
 
         // Obtener la URL para descargar el documento
