@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use IntlDateFormatter;
 use App\Models\Values;
 use App\Models\Consecutive;
 use PhpOffice\PhpWord\TemplateProcessor;
@@ -61,10 +62,25 @@ class DocumentController extends Controller
                 $values['direction'] = 'BUGA-TULUA';
                 // dd('buga tulua');
             }
+
+            // Crear una instancia de Carbon desde la fecha en formato 'd/m/Y'
+            $date = Carbon::createFromFormat('d/m/Y', $validatedData['date']);
+
+            // Crear un formateador para mostrar el mes en español
+            $formatter = new IntlDateFormatter('es_ES', IntlDateFormatter::FULL, IntlDateFormatter::NONE, null, null, 'MMM');
+
+            // Extraer el mes en abreviatura trilítera, el día y el año
+            // $values['dateM'] = strtoupper($date->format('M'));
+            $values['dateM'] = strtoupper($formatter->format($date));
+            $values['dateD'] = $date->format('d');
+            $values['dateY'] = $date->format('Y');
+
+            // Corregir nombre para la busqueda del word
             $validatedData['option-toll'] = 'Betania';
+        } else {
+            $values['date'] = $validatedData['date'];
         }
 
-        $values['date'] = $validatedData['date'];
 
         // Busca y asigna el valor del peaje en la base de datos
         $value = Values::where('name', $validatedData['option-toll'])->first();
@@ -82,17 +98,17 @@ class DocumentController extends Controller
         // Asignar los valores a $newToll
         $newToll->setValues($values);
 
-        // // Para trabajr local{
-        // $outputFilePath = 'output/' . $fileName;
-        // $newToll->saveAs(Storage::path($outputFilePath));
-        // $uploadedFile = fopen(Storage::path($outputFilePath), 'r');
-        // // }
-
-        // para trabajar en deployment{
-        $outputFilePath = '/tmp/' . $fileName;
-        $newToll->saveAs($outputFilePath);
-        $uploadedFile = fopen($outputFilePath, 'r');
+        // Para trabajr local{
+        $outputFilePath = 'output/' . $fileName;
+        $newToll->saveAs(Storage::path($outputFilePath));
+        $uploadedFile = fopen(Storage::path($outputFilePath), 'r');
         // }
+
+        // // para trabajar en deployment{
+        // $outputFilePath = '/tmp/' . $fileName;
+        // $newToll->saveAs($outputFilePath);
+        // $uploadedFile = fopen($outputFilePath, 'r');
+        // // }
 
         // Subimos el archivo a Firebase Storage
         try {
@@ -108,7 +124,7 @@ class DocumentController extends Controller
         }
 
         // Eliminamos el archivo temporalmente almacenado
-        // unlink(Storage::path($outputFilePath));
+        unlink(Storage::path($outputFilePath));
 
         // Obtener la URL para descargar el documento
         $url = $this->urlDownloadDocument($fileName);
