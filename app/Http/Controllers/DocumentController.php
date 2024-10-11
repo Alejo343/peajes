@@ -98,17 +98,17 @@ class DocumentController extends Controller
         // Asignar los valores a $newToll
         $newToll->setValues($values);
 
-        // Para trabajr local{
-        $outputFilePath = 'output/' . $fileName;
-        $newToll->saveAs(Storage::path($outputFilePath));
-        $uploadedFile = fopen(Storage::path($outputFilePath), 'r');
-        // }
-
-        // // para trabajar en deployment{
-        // $outputFilePath = '/tmp/' . $fileName;
-        // $newToll->saveAs($outputFilePath);
-        // $uploadedFile = fopen($outputFilePath, 'r');
+        // // Para trabajr local{
+        // $outputFilePath = 'output/' . $fileName;
+        // $newToll->saveAs(Storage::path($outputFilePath));
+        // $uploadedFile = fopen(Storage::path($outputFilePath), 'r');
         // // }
+
+        // para trabajar en deployment{
+        $outputFilePath = '/tmp/' . $fileName;
+        $newToll->saveAs($outputFilePath);
+        $uploadedFile = fopen($outputFilePath, 'r');
+        // }
 
         // Subimos el archivo a Firebase Storage
         try {
@@ -124,7 +124,7 @@ class DocumentController extends Controller
         }
 
         // Eliminamos el archivo temporalmente almacenado
-        unlink(Storage::path($outputFilePath));
+        // unlink(Storage::path($outputFilePath));
 
         // Obtener la URL para descargar el documento
         $url = $this->urlDownloadDocument($fileName);
