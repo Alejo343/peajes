@@ -44,39 +44,43 @@ class DocumentController extends Controller
             'time' => 'required|date_format:H:i',
         ]);
 
-        // Convertir la fecha a formato legible para el documento
-        $validatedData['date'] = date('d/m/Y', strtotime($validatedData['date']));
+        $date = Carbon::parse($validatedData['date']);
+
+        // Formato según peaje
+        $validatedData['date'] = ($validatedData['option-toll'] == 'Cencar')
+            ? $date->format('d-m-Y')
+            : $date->format('d/m/Y');
+
 
         // Definir los valores para el documento
         $values = array(
             'code' => $validatedData['consecutive'],
-            'time' => $validatedData['time']
+            'time' => $validatedData['time'] . ':' . str_pad(rand(0, 59), 2, '0', STR_PAD_LEFT)
         );
 
         if ($validatedData['option-toll'] == 'Betania_Tulua_Buga' || $validatedData['option-toll'] == 'Betania_Buga_Tulua') {
             if ($validatedData['option-toll'] == 'Betania_Tulua_Buga') {
                 $values['direction'] = 'TULUA-BUGA';
-                // dd('tulua buga');
             }
             if ($validatedData['option-toll'] == 'Betania_Buga_Tulua') {
                 $values['direction'] = 'BUGA-TULUA';
-                // dd('buga tulua');
             }
 
             // Crear una instancia de Carbon desde la fecha en formato 'd/m/Y'
-            $date = Carbon::createFromFormat('d/m/Y', $validatedData['date']);
+            $date = Carbon::parse($date->format('d-m-Y'));
 
             // Crear un formateador para mostrar el mes en español
             $formatter = new IntlDateFormatter('es_ES', IntlDateFormatter::FULL, IntlDateFormatter::NONE, null, null, 'MMM');
 
             // Extraer el mes en abreviatura trilítera, el día y el año
-            // $values['dateM'] = strtoupper($date->format('M'));
             $values['dateM'] = strtoupper($formatter->format($date));
             $values['dateD'] = $date->format('d');
             $values['dateY'] = $date->format('Y');
 
             // Corregir nombre para la busqueda del word
             $validatedData['option-toll'] = 'Betania';
+
+            $values['date'] = $date->format('Y/m/d');
         } else {
             $values['date'] = $validatedData['date'];
         }
@@ -84,7 +88,13 @@ class DocumentController extends Controller
 
         // Busca y asigna el valor del peaje en la base de datos
         $value = Values::where('name', $validatedData['option-toll'])->first();
+        $values['value'] = number_format($value->value, 0, ',', '.');
         $values['value'] = $value->value;
+        $values['value'] = ($validatedData['option-toll'] != 'Betania')
+            ? number_format($value->value, 0, ',', '.')
+            : $value->value;
+
+
 
         // define el nombre del nuevo archivo
         $fileName = $validatedData['option-toll']  . '-' . $validatedData['consecutive'] . '.docx';
@@ -98,16 +108,16 @@ class DocumentController extends Controller
         // Asignar los valores a $newToll
         $newToll->setValues($values);
 
-        // // Para trabajr local{
-        // $outputFilePath = 'output/' . $fileName;
-        // $newToll->saveAs(Storage::path($outputFilePath));
-        // $uploadedFile = fopen(Storage::path($outputFilePath), 'r');
+        // // Para trabajr local, recuerda tener la carpeta{
+        $outputFilePath = 'output/' . $fileName;
+        $newToll->saveAs(Storage::path($outputFilePath));
+        $uploadedFile = fopen(Storage::path($outputFilePath), 'r');
         // // }
 
         // para trabajar en deployment{
-        $outputFilePath = '/tmp/' . $fileName;
-        $newToll->saveAs($outputFilePath);
-        $uploadedFile = fopen($outputFilePath, 'r');
+        // $outputFilePath = '/tmp/' . $fileName;
+        // $newToll->saveAs($outputFilePath);
+        // $uploadedFile = fopen($outputFilePath, 'r');
         // }
 
         // Subimos el archivo a Firebase Storage
@@ -124,7 +134,7 @@ class DocumentController extends Controller
         }
 
         // Eliminamos el archivo temporalmente almacenado
-        // unlink(Storage::path($outputFilePath));
+        unlink(Storage::path($outputFilePath));
 
         // Obtener la URL para descargar el documento
         $url = $this->urlDownloadDocument($fileName);
