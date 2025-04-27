@@ -39,7 +39,6 @@ class DocumentController extends Controller
     {
         $validatedData = $request->validate([
             'option-toll' => 'required|string',
-            'consecutive' => 'required|numeric',
             'date' => 'required|date',
             'time' => 'required|date_format:H:i',
         ]);
@@ -54,50 +53,52 @@ class DocumentController extends Controller
 
         // Definir los valores para el documento
         $values = array(
-            'code' => $validatedData['consecutive'],
             'time' => $validatedData['time'] . ':' . str_pad(rand(0, 59), 2, '0', STR_PAD_LEFT)
         );
 
-        if ($validatedData['option-toll'] == 'Betania_Tulua_Buga' || $validatedData['option-toll'] == 'Betania_Buga_Tulua') {
-            if ($validatedData['option-toll'] == 'Betania_Tulua_Buga') {
-                $values['direction'] = 'TULUA-BUGA';
-            }
-            if ($validatedData['option-toll'] == 'Betania_Buga_Tulua') {
-                $values['direction'] = 'BUGA-TULUA';
-            }
+        // Definir configuraciones de peajes especiales
+        $specialTolls = [
+            'Betania_Tulua_Buga' => ['direction' => 'TULUA-BUGA', 'base' => 'Betania'],
+            'Betania_Buga_Tulua' => ['direction' => 'BUGA-TULUA', 'base' => 'Betania'],
+            'Uribe_Paila_Tulua'  => ['direction' => 'PAILA-TULUA', 'base' => 'Uribe'],
+            'Uribe_Tulua_Paila'  => ['direction' => 'TULUA-PAILA', 'base' => 'Uribe'],
+        ];
 
-            // Crear una instancia de Carbon desde la fecha en formato 'd/m/Y'
-            $date = Carbon::parse($date->format('d-m-Y'));
+        // Verificamos si el peaje seleccionado está en el array
+        if (array_key_exists($validatedData['option-toll'], $specialTolls)) {
+            $config = $specialTolls[$validatedData['option-toll']];
 
-            // Crear un formateador para mostrar el mes en español
+            $values['direction'] = $config['direction'];
+
+            // Formatear la fecha correctamente
+            $date = Carbon::createFromFormat('d/m/Y', $validatedData['date']);
+
             $formatter = new IntlDateFormatter('es_ES', IntlDateFormatter::FULL, IntlDateFormatter::NONE, null, null, 'MMM');
-
-            // Extraer el mes en abreviatura trilítera, el día y el año
             $values['dateM'] = strtoupper($formatter->format($date));
             $values['dateD'] = $date->format('d');
             $values['dateY'] = $date->format('Y');
 
-            // Corregir nombre para la busqueda del word
-            $validatedData['option-toll'] = 'Betania';
+            // Cambiar el nombre para búsqueda
+            $validatedData['option-toll'] = $config['base'];
 
+            // Para el documento, usar formato Y/m/d
             $values['date'] = $date->format('Y/m/d');
         } else {
             $values['date'] = $validatedData['date'];
         }
 
-
         // Busca y asigna el valor del peaje en la base de datos
         $value = Values::where('name', $validatedData['option-toll'])->first();
         $values['value'] = number_format($value->value, 0, ',', '.');
         $values['value'] = $value->value;
-        $values['value'] = ($validatedData['option-toll'] != 'Betania')
+        $values['value'] = ($validatedData['option-toll'] != 'Betania' && $validatedData['option-toll'] != 'Uribe')
             ? number_format($value->value, 0, ',', '.')
             : $value->value;
 
 
-
         // define el nombre del nuevo archivo
-        $fileName = $validatedData['option-toll']  . '-' . $validatedData['consecutive'] . '.docx';
+        // $fileName = $validatedData['option-toll']  . '-' . $validatedData['consecutive'] . '.docx';
+        $fileName = $validatedData['option-toll']  . '-' . $date->format(format: 'd-m-Y') . '.docx';
 
         // encontrar el archivo de plantilla correspondiente al tipo de peaje
         $filePath = 'public/docs/' . $validatedData['option-toll'] . '.docx';
@@ -109,15 +110,15 @@ class DocumentController extends Controller
         $newToll->setValues($values);
 
         // // Para trabajr local, recuerda tener la carpeta{
-        $outputFilePath = 'output/' . $fileName;
-        $newToll->saveAs(Storage::path($outputFilePath));
-        $uploadedFile = fopen(Storage::path($outputFilePath), 'r');
+        // $outputFilePath = 'output/' . $fileName;
+        // $newToll->saveAs(Storage::path($outputFilePath));
+        // $uploadedFile = fopen(Storage::path($outputFilePath), 'r');
         // // }
 
         // para trabajar en deployment{
-        // $outputFilePath = '/tmp/' . $fileName;
-        // $newToll->saveAs($outputFilePath);
-        // $uploadedFile = fopen($outputFilePath, 'r');
+        $outputFilePath = '/tmp/' . $fileName;
+        $newToll->saveAs($outputFilePath);
+        $uploadedFile = fopen($outputFilePath, 'r');
         // }
 
         // Subimos el archivo a Firebase Storage
@@ -134,7 +135,7 @@ class DocumentController extends Controller
         }
 
         // Eliminamos el archivo temporalmente almacenado
-        unlink(Storage::path($outputFilePath));
+        // unlink(Storage::path($outputFilePath));
 
         // Obtener la URL para descargar el documento
         $url = $this->urlDownloadDocument($fileName);
@@ -188,50 +189,50 @@ class DocumentController extends Controller
 
     public function saveConsecutive(Request $request)
     {
-        $validatedData = $request->validate([
-            'date' => 'required|date',
-            'name' => 'required|string',
-            'consecutive' => 'required|numeric',
-        ]);
+        // $validatedData = $request->validate([
+        //     'date' => 'required|date',
+        //     'name' => 'required|string',
+        //     'consecutive' => 'required|numeric',
+        // ]);
 
-        //Cambia la clave consecutive por code
-        $validatedData['code'] = $validatedData['consecutive'];
-        unset($validatedData['consecutive']);
+        // //Cambia la clave consecutive por code
+        // $validatedData['code'] = $validatedData['consecutive'];
+        // unset($validatedData['consecutive']);
 
-        try {
-            Consecutive::create($validatedData);
-        } catch (Exception $e) {
-            return redirect('/')->with('message', [
-                'type' => 'error',
-                'text' => 'Error al guardar elsecutivo: ' . $e->getMessage()
-            ]);
-        }
+        // try {
+        //     Consecutive::create($validatedData);
+        // } catch (Exception $e) {
+        //     return redirect('/')->with('message', [
+        //         'type' => 'error',
+        //         'text' => 'Error al guardar elsecutivo: ' . $e->getMessage()
+        //     ]);
+        // }
 
-        return redirect('/')->with('message', [
-            'type' => 'success',
-            'text' => 'Consecutivo guardado'
-        ]);
+        // return redirect('/')->with('message', [
+        //     'type' => 'success',
+        //     'text' => 'Consecutivo guardado'
+        // ]);
     }
 
     //show all consecutives
     public function showConsecutives()
     {
-        $consecutives = Consecutive::all();
-        return view('consecutives', compact('consecutives'));
+        // $consecutives = Consecutive::all();
+        // return view('consecutives', compact('consecutives'));
     }
 
     //delte consecutive
     public function destroyConsecutive($id)
     {
-        $consecutive = Consecutive::find($id);
-        if ($consecutive) {
-            $consecutive->delete();
-            return redirect('/');
-        }
-        return redirect('/')->with('message', [
-            'type' => 'error',
-            'text' => 'Error al eliminar, intenta de nuevo'
-        ]);
+        // $consecutive = Consecutive::find($id);
+        // if ($consecutive) {
+        //     $consecutive->delete();
+        //     return redirect('/');
+        // }
+        // return redirect('/')->with('message', [
+        //     'type' => 'error',
+        //     'text' => 'Error al eliminar, intenta de nuevo'
+        // ]);
     }
 
     //TODO: Metodo para guardar la distacncia entre cada trayecto

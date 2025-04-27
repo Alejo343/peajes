@@ -20,7 +20,7 @@ class ValuesSeeder extends Seeder
 
         Values::create([
             'name' => 'Cerrito',
-            'value' => 11500,
+            'value' => 12600,
         ]);
 
         Values::create([
@@ -29,8 +29,23 @@ class ValuesSeeder extends Seeder
         ]);
 
         Values::create([
+            'name' => 'CIAT',
+            'value' => 12500,
+        ]);
+
+        Values::create([
+            'name' => 'Estambul',
+            'value' => 11500,
+        ]);
+
+        Values::create([
             'name' => 'Betania',
             'value' => 11500,
+        ]);
+
+        Values::create([
+            'name' => 'Uribe',
+            'value' => 12800,
         ]);
     }
 }

@@ -37,48 +37,42 @@
 
             <main>
                 <div class="container mx-auto space-y-16">
+                    <!-- Título principal -->
                     <section>
-                        <h2 class="text-5xl font-bold lg:text-center text-gray-50">Construye el peaje</h2>
+                        <h2 class="text-5xl font-bold lg:text-center text-gray-50">
+                            Construye el peaje
+                        </h2>
                     </section>
 
-                    <section class="grid gap-6 text-center lg:grid-cols-2 xl:grid-cols-5">
-                        <div class="w-full p-6 rounded-md xl:col-span-2 bg-gray-900">
-                            <h4 class="text-2xl font-bold dark:text-white mb-1">Generar peaje</h3>
-                                @include('partials.formDownload')
-                        </div>
-
+                    <!-- Sección principal con flex -->
+                    <section class="flex flex-col xl:flex-row gap-6 text-center">
                         @auth
-                            <div class="w-full p-4 rounded-md xl:col-span-1 bg-gray-900">
+                            <!-- Formulario de actualizar valores -->
+                            <div class="w-full xl:w-1/5 p-6 rounded-md bg-gray-900">
                                 @include('partials.formUpdateValues')
                             </div>
 
-                            <div class="w-full p-4 rounded-md xl:col-span-2 bg-gray-900">
-                                @include('partials.formGenConsecutives')
+                            <!-- Formulario de generar peaje -->
+                            <div class="w-full xl:w-4/5 p-6 rounded-md bg-gray-900">
+                                <h4 class="text-2xl font-bold dark:text-white mb-1">
+                                    Generar peaje
+                                </h4>
+                                @include('partials.formDownload')
                             </div>
                         @else
-                            <div class="w-full p-4 rounded-md xl:col-span-3 bg-gray-900 ">
-                                <h4 class="text-2xl font-bold dark:text-white mb-1">Generar consecutivos</h4>
-                                @include('partials.formGenConsecutives')
+                            <!-- Solo formulario de generar peaje ocupando todo el ancho -->
+                            <div class="w-full p-6 rounded-md bg-gray-900">
+                                <h4 class="text-2xl font-bold dark:text-white mb-1">
+                                    Generar peaje
+                                </h4>
+                                @include('partials.formDownload')
                             </div>
                         @endauth
-
-                        @include('partials.modal')
-
-                        <div class="w-full p-6 rounded-md xl:col-span-2 bg-gray-900">
-                            <h4 class="text-2xl font-bold dark:text-white mb-1">Distancias entre peajes</h4>
-                        </div>
-
-                        <div class="w-full p-4 rounded-md xl:col-span-3 bg-gray-900 ">
-                            <h4 class="text-2xl font-bold dark:text-white mb-1">Consecutivos guardados</h4>
-                            @include('components.alert')
-
-                            @include('partials.savesConsecutivesTable')
-                        </div>
                     </section>
-
-                    <sectioon>
                 </div>
             </main>
+
+
 
             <footer>
                 <div class="container flex justify-between p-6 mx-auto lg:p-8 bg-gray-900">

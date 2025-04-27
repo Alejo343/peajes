@@ -13,14 +13,27 @@
     </ul>
     {{-- <div id="additional-option" class="hidden mt-4"> --}}
     <ul class="flex space-x-4 items-center">
+        <x-option-toll id="CIAT" name="option-toll" value="CIAT" label="CIAT" />
+        <x-option-toll id="Estambul" name="option-toll" value="Estambul" label="Estambul" />
+    </ul>
+
+    <ul class="flex space-x-4 items-center">
         <x-option-toll id="Betania_Tulua_Buga" name="option-toll" value="Betania_Tulua_Buga"
             label="Betania: Tulua - Buga" />
         <x-option-toll id="Betania_Buga_Tulua" name="option-toll" value="Betania_Buga_Tulua"
             label="Betania: Buga - Tulua" />
     </ul>
+
     {{-- </div> --}}
 
-    <div>
+    <ul class="flex space-x-4 items-center">
+        <x-option-toll id="Uribe_Tulua_Paila" name="option-toll" value="Uribe_Tulua_Paila"
+            label="Uribe: Tulua - Paila" />
+        <x-option-toll id="Uribe_Paila_Tulua" name="option-toll" value="Uribe_Paila_Tulua"
+            label="Uribe: Paila - Tulua" />
+    </ul>
+
+    {{-- <div>
         <label for="consecutive"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Concecutivo</label>
         <input type="number" id="consecutive" name="consecutive"
@@ -28,7 +41,7 @@
                     focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
                     dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="000009999" value="" required />
-    </div>
+    </div> --}}
 
     <div class="flex flex-wrap gap-6">
         <div class="flex-1">
